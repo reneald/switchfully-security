@@ -265,4 +265,54 @@ public class BaobabTest extends RestAssuredTest {
                 .assertThat()
                 .statusCode(FORBIDDEN.value());
     }
+
+    @Test
+    public void getTanksInfo_givenPrivateAndHR_ThenShouldGetResult() {
+        givenRequestForUser("BOATY", "MCBOATFACE")
+                .when()
+                .post(String.format("%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "tanks"))
+                .then()
+                .assertThat()
+                .statusCode(OK.value());
+    }
+
+    @Test
+    public void getTanksInfo_givenCivilian_ThenShouldGetResult() {
+        givenRequestForUser("ZWANETTA", "WORST")
+                .when()
+                .post(String.format("%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "tanks"))
+                .then()
+                .assertThat()
+                .statusCode(OK.value());
+    }
+
+    @Test
+    public void getTanksInfo_givenPrivate_ThenShouldGetResult() {
+        givenRequestForUser("JMILLER", "THANKS")
+                .when()
+                .post(String.format("%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "tanks"))
+                .then()
+                .assertThat()
+                .statusCode(OK.value());
+    }
+
+    @Test
+    public void getTanksInfo_givenGeneral_ThenShouldGetResult() {
+        givenRequestForUser("GENNY", "RALLY")
+                .when()
+                .post(String.format("%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "tanks"))
+                .then()
+                .assertThat()
+                .statusCode(OK.value());
+    }
+
+    @Test
+    public void getTanksInfo_givenHR_ThenShouldGetFORBIDDEN() {
+        givenRequestForUser("UNCLE", "SAM")
+                .when()
+                .post(String.format("%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "tanks"))
+                .then()
+                .assertThat()
+                .statusCode(FORBIDDEN.value());
+    }
 }

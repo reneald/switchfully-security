@@ -49,5 +49,7 @@ public class ArmyResource {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/tanks")
-    public void
+    public void getTanksInfo() {
+
+    }
 }

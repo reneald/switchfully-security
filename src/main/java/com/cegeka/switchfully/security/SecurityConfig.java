@@ -2,6 +2,7 @@ package com.cegeka.switchfully.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,6 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/armies/promote/**").hasRole("HUMAN_RELATIONSHIPS")
                 .antMatchers("/armies/discharge/**").hasRole("HUMAN_RELATIONSHIPS")
                 .antMatchers("/armies/nuke").hasRole("GENERAL")
+                .antMatchers(HttpMethod.GET, "/armies/tanks").hasAnyRole("PRIVATE", "GENERAL", "CIVILIAN")
+                .antMatchers(HttpMethod.POST, "/armies/tanks").hasRole("PRIVATE")
+                .antMatchers(HttpMethod.DELETE, "/armies/tanks").hasRole("GENERAL")
+                .antMatchers(HttpMethod.PUT, "/armies/tanks").hasAnyRole("PRIVATE", "GENERAL")
                 .antMatchers("/armies/**").hasAnyRole("PRIVATE", "GENERAL")
                 .and().httpBasic()
                 .authenticationEntryPoint(authEntryPoint);
