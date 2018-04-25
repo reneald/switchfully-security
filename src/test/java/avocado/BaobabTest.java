@@ -38,6 +38,16 @@ public class BaobabTest extends RestAssuredTest {
     }
 
     @Test
+    public void getDeployedArmyInfo_givenUserWithRolePrivateAndHR_ThenShouldGetResult() {
+        givenRequestForUser("BOATY", "MCBOATFACE")
+                .when()
+                .get(String.format("%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "Belgium"))
+                .then()
+                .assertThat()
+                .statusCode(OK.value());
+    }
+
+    @Test
     public void getDeployedArmyInfo_givenUserWithRoleGeneral_ThenShouldGetResult() {
         givenRequestForUser("GENNY", "RALLY")
                 .when()
@@ -63,6 +73,16 @@ public class BaobabTest extends RestAssuredTest {
     @Test
     public void launchNukes_givenUserWithRoleHumanRelations_ThenShouldGetForbidden() {
         givenRequestForUser("UNCLE", "SAM")
+                .when()
+                .get(String.format("%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "nuke"))
+                .then()
+                .assertThat()
+                .statusCode(FORBIDDEN.value());
+    }
+
+    @Test
+    public void launchNukes_givenUserWithRoleHumanRelationsAndPrivate_ThenShouldGetForbidden() {
+        givenRequestForUser("BOATY", "MCBOATFACE")
                 .when()
                 .get(String.format("%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "nuke"))
                 .then()
@@ -114,6 +134,16 @@ public class BaobabTest extends RestAssuredTest {
     }
 
     @Test
+    public void joinArmy_givenUserWithRoleHumanRelationsAndPrivate_ThenShouldGetForbidden() {
+        givenRequestForUser("BOATY", "MCBOATFACE")
+                .when()
+                .post(ArmyResource.ARMY_RESOURCE_PATH)
+                .then()
+                .assertThat()
+                .statusCode(FORBIDDEN.value());
+    }
+
+    @Test
     public void joinArmy_givenUserWithRolePrivate_ThenShouldGetForbidden() {
         givenRequestForUser("JMILLER", "THANKS")
                 .when()
@@ -133,9 +163,6 @@ public class BaobabTest extends RestAssuredTest {
                 .statusCode(FORBIDDEN.value());
     }
 
-
-
-
     @Test
     public void promotePrivate_givenUserWithRoleCivilian_ThenShouldGetForbidden() {
         givenRequestForUser("ZWANETTA", "WORST")
@@ -149,6 +176,16 @@ public class BaobabTest extends RestAssuredTest {
     @Test
     public void promotePrivate_givenUserWithRoleHumanRelations_ThenShouldGetResult() {
         givenRequestForUser("UNCLE", "SAM")
+                .when()
+                .post(String.format("%s/%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "promote", "ZWANETTA"))
+                .then()
+                .assertThat()
+                .statusCode(OK.value());
+    }
+
+    @Test
+    public void promotePrivate_givenUserWithRoleHumanRelationsAndPrivate_ThenShouldGetResult() {
+        givenRequestForUser("BOATY", "MCBOATFACE")
                 .when()
                 .post(String.format("%s/%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "promote", "ZWANETTA"))
                 .then()
@@ -192,6 +229,16 @@ public class BaobabTest extends RestAssuredTest {
     @Test
     public void dischargePrivate_givenUserWithRoleHumanRelations_ThenShouldGetResult() {
         givenRequestForUser("UNCLE", "SAM")
+                .when()
+                .post(String.format("%s/%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "discharge", "ZWANETTA"))
+                .then()
+                .assertThat()
+                .statusCode(OK.value());
+    }
+
+    @Test
+    public void dischargePrivate_givenUserWithRoleHumanRelationsAndPrivate_ThenShouldGetResult() {
+        givenRequestForUser("BOATY", "MCBOATFACE")
                 .when()
                 .post(String.format("%s/%s/%s", ArmyResource.ARMY_RESOURCE_PATH, "discharge", "ZWANETTA"))
                 .then()

@@ -25,11 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //                .and()
 //                .authorizeRequests()
-//                .antMatchers("/private/*").hasRole("PRIVATE")
-//                .antMatchers("/*").hasRole("CIVILIAN")
-//                .antMatchers("/promote/*").hasRole("HUMAN_RELATIONSHIPS")
-//                .antMatchers("/discharge/*").hasRole("HUMAN_RELATIONSHIPS")
-//                .antMatchers("/nuke/*").hasRole("GENERAL")
+//                .antMatchers("/armies").hasRole("CIVILIAN")
+//                .antMatchers("/armies/promote/**").hasRole("HUMAN_RELATIONSHIPS")
+//                .antMatchers("/armies/discharge/**").hasRole("HUMAN_RELATIONSHIPS")
+//                .antMatchers("/armies/nuke").hasRole("GENERAL")
+//                .antMatchers("/armies/**").hasAnyRole("PRIVATE", "GENERAL")
                 .and().httpBasic()
                 .authenticationEntryPoint(authEntryPoint);
     }
@@ -42,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("JMILLER").password("THANKS").roles("PRIVATE")
                 .and()
                 .withUser("UNCLE").password("SAM").roles("HUMAN_RELATIONSHIPS")
+                .and()
+                .withUser("BOATY").password("MCBOATFACE").roles("PRIVATE", "HUMAN_RELATIONSHIPS")
                 .and()
                 .withUser("GENNY").password("RALLY").roles("GENERAL");
     }
