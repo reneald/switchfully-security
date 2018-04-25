@@ -1,5 +1,6 @@
 package com.cegeka.switchfully.security;
 
+import com.cegeka.switchfully.security.external.authentication.ArmyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationEntryPoint authEntryPoint;
+    @Autowired
+    private ArmyAuthenticationProvider authenticationProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,14 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("ZWANETTA").password("WORST").roles("CIVILIAN")
-                .and()
-                .withUser("JMILLER").password("THANKS").roles("PRIVATE")
-                .and()
-                .withUser("UNCLE").password("SAM").roles("HUMAN_RELATIONSHIPS")
-                .and()
-                .withUser("GENNY").password("RALLY").roles("GENERAL");
+//        auth.inMemoryAuthentication()
+//                .withUser("ZWANETTA").password("WORST").roles("CIVILIAN")
+//                .and()
+//                .withUser("JMILLER").password("THANKS").roles("PRIVATE")
+//                .and()
+//                .withUser("UNCLE").password("SAM").roles("HUMAN_RELATIONSHIPS")
+//                .and()
+//                .withUser("GENNY").password("RALLY").roles("GENERAL");
+        auth.authenticationProvider(authenticationProvider);
     }
 
 }
