@@ -15,7 +15,7 @@ public class ArmyResource {
     public static final String ARMY_RESOURCE_PATH = "/armies";
 
     @RequestMapping(method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE ,path = "/{country}")
-    @PreAuthorize("hasAnyRole({'PRIVATE', 'GENERAL'})")
+//    @PreAuthorize("hasAnyRole({'PRIVATE', 'GENERAL'})")
     public ArmyInfoDto getDeployedArmyInfo(@PathVariable(value = "country") String country){
         return ArmyInfoDto.armyInfoDto()
                 .withCountry(country)
@@ -25,26 +25,29 @@ public class ArmyResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasRole('CIVILIAN')")
+//    @PreAuthorize("hasRole('CIVILIAN')")
     public void joinArmy(){
         //TODO
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/promote/{name}")
-    @PreAuthorize("hasRole('ROLE_HUMAN_RELATIONSHIPS')")
+//    @PreAuthorize("hasRole('ROLE_HUMAN_RELATIONSHIPS')")
     public void promotePrivate(@PathVariable(value = "name") String name){
         //TODO
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/discharge/{name}")
-    @PreAuthorize("hasRole('ROLE_HUMAN_RELATIONSHIPS')")
+//    @PreAuthorize("hasRole('ROLE_HUMAN_RELATIONSHIPS')")
     public void dischargeSoldier(@PathVariable(value = "name") String name){
         //TODO
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/nuke")
-    @PreAuthorize("hasRole('ROLE_GENERAL')")
+//    @PreAuthorize("hasRole('ROLE_GENERAL')")
     public String launchNukes(){
         return "The world ends. Not with a bang but a whimper";
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/tanks")
+    public void
 }
