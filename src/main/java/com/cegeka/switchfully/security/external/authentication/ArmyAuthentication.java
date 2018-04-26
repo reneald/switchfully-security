@@ -4,16 +4,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArmyAuthentication implements Authentication {
 
-    private List<SimpleGrantedAuthority> roles;
+    private List<SimpleGrantedAuthority> roles = new ArrayList();
     private String username;
     private String password;
-    private boolean isAuthenticated = false;
+    private boolean isAuthenticated = true;
 
     public ArmyAuthentication(List<String> roles, String username, String password) {
         this.roles = roles.stream()
@@ -55,6 +56,6 @@ public class ArmyAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return null;
+        return username;
     }
 }
